@@ -1,0 +1,264 @@
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.yuchen.net/photography/Camera#">
+
+    <SLR rdf.ID="Nikon-D70"> 
+        <weight>1.4 lbs</weight>
+    </SLR>
+
+</rdf:RDF>
+
+
+
+<!-- Used xmlns:base="http://www.yuchen.net/rdf/NikonD70.rdf#" to keep the URI unique -->
+<!-- When the xml:base is used the namespace doesn't end wih a # -->
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.yuchen.net/photography/Camera#"
+    xmlns:base="http://www.yuchen.net/rdf/NikonD70.rdf">
+
+    <SLR rdf.ID="Nikon-D70"> 
+        <weight>1.4 lbs</weight>
+    </SLR>
+
+</rdf:RDF>
+
+
+
+<!-- Short Form -->
+<!-- Called concise typed node element in a graph -->
+<!-- Used rdf.about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70" to keep the URI unique -->
+<!-- The tag 'SLR' implies the rdf:type is SLR -->
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.yuchen.net/photography/Camera#">
+
+    <SLR rdf.about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70"> 
+        <weight>1.4 lbs</weight>
+    </SLR>
+
+</rdf:RDF>
+
+
+
+<!-- Long Form -->
+<!-- Called typed nodes / typed node elements in a graph -->
+<!-- Using rdf:type to describe the class of the resource -->
+<!-- Using rdf:Description to describe the resource -->
+<!-- Using rdf.resource to reference the class of the resource -->
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.yuchen.net/photography/Camera#">
+
+    <rdf:Description rdf:about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70">
+        <rdf:type rdf:resource="http://www.yuchen.net/photography/Camera#SLR"/>
+        <weight>1.4 lbs</weight>
+    </rdf:Description>
+
+</rdf:RDF>
+
+
+<!-- Created an anonymous resource to describe the weight property -->
+<!-- Called a blank node in a graph -->
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:uom="http://standards.org/measurement#"
+    xmlns="http://www.yuchen.net/photography/Camera#">
+
+    <rdf:Description rdf:about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70">
+        <rdf:type rdf:resource="http://www.yuchen.net/photography/Camera#SLR"/>
+        <weight>
+            <!-- Doesn't have rdf:ID or rdf:about attribute so it's an anonymous resource -->
+            <rdf:Description>
+                <rdf:value>1.4</rdf:value>
+                <uom:units rdf:resource="http://www.something.org/units/lbs"/>
+            </rdf:Description>
+        </weight>
+    </rdf:Description>
+
+</rdf:RDF>
+
+
+
+<!-- This is the short hand form of the above -->
+<!-- Used rdf:parseType="Resource" to indicate that the property value is a resource -->
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:uom="http://standards.org/measurement#"
+    xmlns="http://www.yuchen.net/photography/Camera#">
+
+    <rdf:Description rdf:about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70">
+        <rdf:type rdf:resource="http://www.yuchen.net/photography/Camera#SLR"/>
+        <weight rdf:parseType="Resource">
+                <rdf:value>1.4</rdf:value>
+                <uom:units rdf:resource="http://www.something.org/units/lbs"/>
+        </weight>
+    </rdf:Description>
+
+</rdf:RDF>
+
+
+
+<!-- Another way is to use Blank Node Identifier -->
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:uom="http://standards.org/measurement#"
+    xmlns="http://www.yuchen.net/photography/Camera#">
+
+    <rdf:Description rdf:about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70">
+        <rdf:type rdf:resource="http://www.yuchen.net/photography/Camera#SLR"/>
+        <!-- Blank Node Identifier -->
+        <weight rdf:nodeID="weightID"/>
+    </rdf:Description>
+    
+    <!-- Using rdf:NodeID to reference the blank node -->
+    <rdf:Description rdf:nodeID="weightID">
+        <rdf:value>1.4</rdf:value>
+        <uom:units rdf:resource="http://www.something.org/units/lbs"/>
+    </rdf:Description>
+
+</rdf:RDF>
+
+
+
+<!-- The 1.4 is a untyped literal. We need to make the type to Decimal -->
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:uom="http://standards.org/measurement#"
+    xmlns="http://www.yuchen.net/photography/Camera#">
+
+    <rdf:Description rdf:about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70">
+        <rdf:type rdf:resource="http://www.yuchen.net/photography/Camera#SLR"/>
+        <weight>
+            <rdf:Description>
+                <!-- rdf:datatype is used to specify the type of the literal -->
+                <rdf:value rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.4</rdf:value>
+                <uom:units rdf:resource="http://www.something.org/units/lbs"/>
+            </rdf:Description>
+        </weight>
+    </rdf:Description>
+
+</rdf:RDF>
+
+
+
+<!-- Can use XML entities as well for add the data type -->
+<!-- The XML entity should be defined in the DOCTYPE declaration -->
+<?xml version="1.0" ?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:uom="http://standards.org/measurement#"
+    xmlns="http://www.yuchen.net/photography/Camera#">
+
+    <rdf:Description rdf:about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70">
+        <rdf:type rdf:resource="http://www.yuchen.net/photography/Camera#SLR"/>
+        <weight>
+            <rdf:Description>
+                <!-- &xsd; is the XML entity -->
+                <rdf:value rdf:datatype="&xsd;decimal">1.4</rdf:value>
+                <uom:units rdf:resource="http://www.something.org/units/lbs"/>
+            </rdf:Description>
+        </weight>
+    </rdf:Description>
+
+</rdf:RDF>
+
+
+
+<!-- Another person can add some data by creating a resource with the same URI -->
+<? xml version="1.0" ?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:uom="http://standards.org/measurement#"
+    xmlns:yuchen="http://www.yuchen.net/photography/Camera#"
+    xmlns="http://www.yufriend.net/photography/Camera#">
+
+    <!-- Noice that the URI is same as before-->
+    <rdf:Description rdf:about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70">
+        <!-- Notice that the class is also the same -->
+        <rdf:type rdf:resource="http://www.yuchen.net/photography/Camera#SLR"/>
+        <minSensitivity rdf.datatype="&xsd;decimal">200 </minSensitivity>
+        <maxSensitivity rdf.datatype="&xsd;decimal">1600</maxSensitivity>
+    </rdf:Description>
+
+</rdf:RDF>
+
+
+
+<!-- Merging (Aggregate) the two RDF graphs to the first one -->
+<?xml version="1.0" ?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:uom="http://standards.org/measurement#"
+    xmlns:yufriend="http://www.yufriend.net/photography/Camera#"
+    xmlns="http://www.yuchen.net/photography/Camera#">
+
+    <rdf:Description rdf:about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70">
+        <rdf:type rdf:resource="http://www.yuchen.net/photography/Camera#SLR"/>
+        <weight>
+            <rdf:Description>
+                <rdf:value rdf:datatype="&xsd;decimal">1.4</rdf:value>
+                <uom:units rdf:resource="http://www.something.org/units/lbs"/>
+            </rdf:Description>
+        </weight>
+        <!-- The properties defined by yufriend namespace is merged to the first one -->
+        <yufriend:minSensitivity rdf:datatype="&xsd;decimal">200 </yufriend:minSensitivity>
+        <yufriend:maxSensitivity rdf:datatype="&xsd;decimal">1600</yufriend:maxSensitivity>
+    </rdf:Description>
+
+</rdf:RDF>
+
+
+
+<!-- Dublin Core can be used with RDF as well -->
+<?xml version="1.0" ?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:uom="http://standards.org/measurement#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns="http://www.yuchen.net/photography/Camera#">
+
+    <rdf:Description rdf:about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70">
+        <rdf:type rdf:resource="http://www.yuchen.net/photography/Camera#SLR"/>
+        <weight>
+            <rdf:Description>
+                <rdf:value rdf:datatype="&xsd;decimal">1.4</rdf:value>
+                <uom:units rdf:resource="http://www.something.org/units/lbs"/>
+            </rdf:Description>
+        </weight>
+        <!-- Dublin Core metadata -->
+        <dc:title>Nikon D70</dc:title>
+        <dc:creator>Yuchen</dc:creator>
+        <dc:date>2004-03-01</dc:date>
+    </rdf:Description>
+
+</rdf:RDF>
+
+
+
+<!-- RDF documents uses a RDFS schema -->
+<?xml version="1.0" ?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns="http://www.yuchen.net/photography/Camera.rdfs#">
+
+    <rdf:Description rdf:about="http://www.yuchen.net/photography/Camera.rdf#SLR">
+        <rdf:type rdf:resource="http://www.yuchen.net/photography/Camera#SLR"/>
+        <!-- owned_by is a property defined in the RDFS schema -->
+        <owned_by rdf:resource="http://www.yuchen.net/people#LiyangYu"/>
+    </rdf:Description>
+
+</rdf:RDF>
+
+
