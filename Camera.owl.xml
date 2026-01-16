@@ -201,5 +201,176 @@
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
-    
+
 </rdf:RDF>
+
+
+
+<!-- Owl Class Features - owl:cardinality, owl:minCardinality, owl:maxCardinality -->
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.owl">  
+
+    <!-- #### Classes #### -->
+    
+    <owl:Class rdf:ID="SLR"> 
+        <rdfs:subClassOf rdf:resource="#Digital"/>
+    </owl:Class>
+
+    <rdfs:Property rdf:ID="owned_by">
+        <rdfs:domain rdf:resource="#Camera"/>
+        <rdfs:range rdf:resource="#Photographer"/>
+    </rdfs:Property>
+    
+    <!-- Here, ExpensiveSLR be able to have exactly one owner -->
+    <owl:Class rdf:ID="ExpensiveSLR">
+        <rdfs:subClassOf rdf:resource="#SLR"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#owned_by"/>
+                <!-- owl:cardinality specifies that the property must have exactly the specified number of values -->
+                <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">
+                    1
+                </owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>    
+
+    <!-- Here, ExpensiveSLR need to have at least one owner -->
+    <owl:Class rdf:ID="ExpensiveSLR">
+        <rdfs:subClassOf rdf:resource="#SLR"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#owned_by"/>
+                <!-- owl:minCardinality specifies that the property must have at least the specified number of values -->
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">
+                    1
+                </owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+
+    <!-- Here, ExpensiveSLR can have at most three owners on maximum -->
+    <owl:Class rdf:ID="ExpensiveSLR">
+        <rdfs:subClassOf rdf:resource="#SLR"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#owned_by"/>
+                <!-- owl:maxCardinality specifies that the property must have at most the specified number of values -->
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">
+                    3
+                </owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+
+    <!-- Here, ExpensiveSLR can have at least one user but not more than three -->
+    <owl:Class rdf:ID="ExpensiveSLR">
+        <rdfs:subClassOf rdf:resource="#SLR"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#owned_by"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#owned_by"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">3</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+
+
+</rdf:RDF>
+
+<!-- OWL Class Features - Enumerations in OWL -->
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.owl">
+
+    <!-- #### Classes #### -->
+
+    <!-- We can explicilty define what recources are qualified as ExpensiveSLRs -->
+    <owl:Class rdf:ID="ExpensiveSLR">
+        <rdfs:subClassOf rdf:resource="#SLR"/>
+        <!-- owl:oneOf specifies an enumeration of instances -->
+        <!-- Note hat rdf:parseType="Collection" is ussed with owl:oneOf -->
+        <owl:oneOf rdf:parseType="Collection">
+            <SLR rdf:about="http://www.someNikonSite.com#D70"/>
+            <SLR rdf:about="http://www.someNikonSite.com#D200"/>
+            <SLR rdf:about="http://www.someCanonSite.com#20D"/>
+        </owl:oneOf>
+    </owl:Class>
+
+
+</rdf:RDF>
+
+<!-- Updated OWL upto now -->
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.owl">
+
+    <!-- #### Classes #### -->
+
+    <owl:Class rdf:ID="Camera">
+    </owl:Class>   
+
+    <owl:Class rdf:ID="Person">
+    </owl:Class>
+
+    <owl:Class rdf:ID="Specifications">
+    </owl:Class>
+
+    <owl:Class rdf:ID="Digital">
+        <rdfs:subClassOf rdf:resource="#Camera"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="Film">
+        <rdfs:subClassOf rdf:resource="#Camera"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="SLR">
+        <rdfs:subClassOf rdf:resource="#Digital"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="PointAndShoot">
+        <rdfs:subClassOf rdf:resource="#Digital"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="Photographer">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="Professional">
+        <rdfs:subClassOf rdf:resource="#Photographer"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="Amateur">
+        <rdfs:subClassOf rdf:resource="#Photographer"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="ExpensiveSLR">
+        <rdfs:subClassOf rdf:resource="#SLR"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#owned_by"/>
+                <owl:someValuesFrom rdf:resource="#Professional"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+
+    <!-- #### Properties ... #### -->
+
+</rdf:RDF>
+
+
+<!-- Defining Properties in OWL -->
+
+
