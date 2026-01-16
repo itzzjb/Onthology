@@ -1,0 +1,186 @@
+# Camera OWL Ontology in Turtle Format
+# Base URI: http://www.yuchen.net/photography/Camera.owl#
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.yuchen.net/photography/Camera.owl#> .
+
+# ================================
+# Ontology Header
+# ================================
+
+<http://www.yuchen.net/photography/Camera.owl> a owl:Ontology ;
+    rdfs:label "Camera Ontology" ;
+    rdfs:comment "This ontology describes different types of cameras, photographers, and their relationships." ;
+    owl:versionInfo "Version 1.0 - Initial release" ;
+    owl:priorVersion <http://www.yuchen.net/photography/Camera0.owl> ;
+    owl:imports <http://www.anotherOntology.org/ontologies/Photography.owl> .
+
+# ================================
+# Classes
+# ================================
+
+# Base Classes
+:Camera a owl:Class .
+
+:Person a owl:Class .
+
+:Specifications a owl:Class .
+
+# Camera Subclasses
+:Digital a owl:Class ;
+    rdfs:subClassOf :Camera ;
+    owl:equivalentClass <http://www.anotherOntology.org/ontologies/Photography.owl#DigitalCamera> .
+
+:Film a owl:Class ;
+    rdfs:subClassOf :Camera .
+
+:SLR a owl:Class ;
+    rdfs:subClassOf :Digital ;
+    owl:disjointWith :PointAndShoot ;
+    owl:equivalentClass <http://www.anotherOntology.org/ontologies/Photography.owl#SingleLensReflex> .
+
+:PointAndShoot a owl:Class ;
+    rdfs:subClassOf :Digital .
+
+# Person Subclasses
+:Photographer a owl:Class ;
+    rdfs:subClassOf :Person .
+
+:Professional a owl:Class ;
+    rdfs:subClassOf :Photographer ;
+    owl:disjointWith :Amateur .
+
+:Amateur a owl:Class ;
+    rdfs:subClassOf :Photographer .
+
+# ================================
+# ExpensiveSLR with Restrictions
+# ================================
+
+:ExpensiveSLR a owl:Class ;
+    rdfs:subClassOf :SLR ;
+    # owl:someValuesFrom - at least one owner must be Professional
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :owned_by ;
+        owl:someValuesFrom :Professional
+    ] ;
+    # owl:hasValue - expensiveOrNot must be "expensive"
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :expensiveOrNot ;
+        owl:hasValue "expensive"^^xsd:string
+    ] ;
+    # owl:minCardinality - at least 1 owner
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :owned_by ;
+        owl:minCardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    # owl:maxCardinality - at most 3 owners
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :owned_by ;
+        owl:maxCardinality "3"^^xsd:nonNegativeInteger
+    ] .
+
+# ================================
+# ExpensiveSLR with allValuesFrom (only Professionals)
+# ================================
+
+:ExpensiveSLRProfessionalOnly a owl:Class ;
+    rdfs:subClassOf :SLR ;
+    # owl:allValuesFrom - ALL owners must be Professional
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :owned_by ;
+        owl:allValuesFrom :Professional
+    ] .
+
+# ================================
+# ExpensiveSLR with exact cardinality (exactly 1 owner)
+# ================================
+
+:ExpensiveSLRSingleOwner a owl:Class ;
+    rdfs:subClassOf :SLR ;
+    # owl:cardinality - exactly 1 owner
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :owned_by ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger
+    ] .
+
+# ================================
+# ExpensiveSLR as Enumeration (owl:oneOf)
+# ================================
+
+:ExpensiveSLREnum a owl:Class ;
+    rdfs:subClassOf :SLR ;
+    owl:oneOf (
+        <http://www.someNikonSite.com#D70>
+        <http://www.someNikonSite.com#D200>
+        <http://www.someCanonSite.com#20D>
+    ) .
+
+# ================================
+# Object Properties
+# ================================
+
+:owned_by a owl:ObjectProperty ;
+    rdfs:domain :Camera ;
+    rdfs:range :Photographer .
+
+:owns a owl:ObjectProperty ;
+    owl:inverseOf :owned_by ;
+    rdfs:domain :Photographer ;
+    rdfs:range :Camera ;
+    a owl:InverseFunctionalProperty .
+
+:has_spec a owl:ObjectProperty ;
+    rdfs:domain :SLR ;
+    rdfs:range :Specifications .
+
+:friend_with a owl:ObjectProperty , owl:SymmetricProperty ;
+    rdfs:domain :Person ;
+    rdfs:range :Person .
+
+:betterQualityPriceRatio a owl:ObjectProperty , owl:TransitiveProperty ;
+    rdfs:domain :Camera ;
+    rdfs:range :Camera .
+
+# ================================
+# Datatype Properties
+# ================================
+
+:expensiveOrNot a owl:DatatypeProperty ;
+    rdfs:domain :Digital ;
+    rdfs:range xsd:string .
+
+:model a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :Specifications ;
+    rdfs:range xsd:string .
+
+:pixel a owl:DatatypeProperty ;
+    rdfs:domain :Digital ;
+    rdfs:range <http://www.someStandard.org/MegaPixel> .
+
+# ================================
+# Custom Datatypes
+# ================================
+
+<http://www.someStandard.org/MegaPixel> a rdfs:Datatype ;
+    rdfs:subClassOf xsd:decimal .
+
+# ================================
+# owl:AllDifferent - Distinct Instances
+# ================================
+
+[] a owl:AllDifferent ;
+    owl:distinctMembers (
+        <http://www.yuchen.net/rdf/NikonD70.rdf#NikonD70>
+        <http://www.yufriend.net/rdf/NikonD70.rdf#AsianNikonD70>
+        <http://www.anotherfriend.net/rdf/NikonD70.rdf#EuropeanNikonD70>
+    ) .

@@ -1,0 +1,119 @@
+# Camera RDFS Schema in Turtle Format
+# Base URI: http://www.yuchen.net/photography/Camera.rdfs#
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.yuchen.net/photography/Camera.rdfs#> .
+@prefix yufriend: <http://www.yufriend.net/photography/Camera.rdfs#> .
+
+# ================================
+# Classes
+# ================================
+
+# Base Classes
+:Camera a rdfs:Class ;
+    rdfs:label "Camera Class"@en ;
+    rdfs:comment "This class represents all types of cameras including digital and film cameras."@en .
+
+:Person a rdfs:Class .
+
+:Specifications a rdfs:Class .
+
+# Camera Subclasses
+:Digital a rdfs:Class ;
+    rdfs:subClassOf :Camera .
+
+:Film a rdfs:Class ;
+    rdfs:subClassOf :Camera .
+
+:SLR a rdfs:Class ;
+    rdfs:subClassOf :Digital .
+
+:PointAndShoot a rdfs:Class ;
+    rdfs:subClassOf :Digital .
+
+# Person Subclasses
+:Artist a rdfs:Class ;
+    rdfs:subClassOf :Person .
+
+:Photographer a rdfs:Class ;
+    rdfs:subClassOf :Person ;
+    rdfs:subClassOf :Artist .  # Multiple inheritance
+
+:Journalist a rdfs:Class ;
+    rdfs:subClassOf :Person .
+
+# Alternative class name from Point-And-Shoot
+:Point-And-Shoot a rdfs:Class ;
+    rdfs:subClassOf :Digital .
+
+# ================================
+# Properties
+# ================================
+
+# Object Properties (linking resources to resources)
+:owned_by a rdf:Property ;
+    rdfs:domain :Camera ;  # Using superclass so Digital/Film can use it
+    rdfs:range :Photographer .
+
+# Owned_by variant with external range
+:owned_by_external a rdf:Property ;
+    rdfs:domain :SLR ;
+    rdfs:range :Photographer ;
+    rdfs:range <http://www.someotherNs.org#Journalist> .
+
+:has_spec a rdf:Property ;
+    rdfs:domain :SLR ;
+    rdfs:range :Specifications .
+
+# Datatype Properties (linking resources to literals)
+:model a rdf:Property ;
+    rdfs:label "Model Property"@en ;
+    rdfs:comment "This property represents the model name or number of the camera specifications."@en ;
+    rdfs:domain :Specifications ;
+    rdfs:range xsd:string .
+
+# Untyped Literal range (not recommended - affects reasoning)
+:model_untyped a rdf:Property ;
+    rdfs:domain :Specifications ;
+    rdfs:range rdfs:Literal .
+
+:pixel a rdf:Property ;
+    rdfs:label "Pixel Property"@en ;
+    rdfs:comment "This property represents the pixel size of the camera."@en ;
+    rdfs:domain :Digital ;
+    rdfs:range <http://www.someStandard.org/MegaPixel> .
+
+# SubProperties
+:official_model a rdf:Property ;
+    rdfs:subPropertyOf :model .
+
+:commercial_name a rdf:Property .
+
+:market_name a rdf:Property ;
+    rdfs:subPropertyOf :official_model ;
+    rdfs:subPropertyOf :commercial_name .  # Multiple inheritance
+
+# XMLLiteral Property (for XML content)
+:features a rdf:Property ;
+    rdfs:domain :Digital ;
+    rdfs:range rdf:XMLLiteral .
+
+# ================================
+# Custom Datatypes
+# ================================
+
+<http://www.someStandard.org/MegaPixel> a rdfs:Datatype ;
+    rdfs:subClassOf xsd:decimal .
+
+<http://www.someStandard.org/Hours> a rdfs:Datatype ;
+    rdfs:subClassOf xsd:decimal .
+
+# ================================
+# Aggregated Property from yufriend namespace
+# ================================
+
+yufriend:battery_life a rdf:Property ;
+    rdfs:domain :Digital ;
+    rdfs:range <http://www.someStandard.org/Hours> .

@@ -1,0 +1,89 @@
+# NikonD70 RDF Instance Data in Turtle Format
+# Base URI: http://www.yuchen.net/rdf/NikonD70.rdf#
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix uom: <http://standards.org/measurement#> .
+@prefix cam: <http://www.yuchen.net/photography/Camera#> .
+@prefix camowl: <http://www.yuchen.net/photography/Camera.owl#> .
+@prefix yufriend: <http://www.yufriend.net/photography/Camera#> .
+@prefix camrdfs: <http://www.yuchen.net/photography/Camera.rdfs#> .
+@prefix : <http://www.yuchen.net/rdf/NikonD70.rdf#> .
+
+# ================================
+# Camera Instance - Short Form
+# ================================
+
+:Nikon-D70 a cam:SLR ;
+    cam:weight "1.4 lbs" .
+
+# ================================
+# Camera Instance - With Blank Node for Weight
+# ================================
+
+:Nikon-D70-detailed a cam:SLR ;
+    cam:weight [
+        rdf:value "1.4"^^xsd:decimal ;
+        uom:units <http://www.something.org/units/lbs>
+    ] .
+
+# ================================
+# Camera Instance - With Typed Literals
+# ================================
+
+:Nikon-D70-typed a cam:SLR ;
+    cam:weight [
+        rdf:value "1.4"^^xsd:decimal ;
+        uom:units <http://www.something.org/units/lbs>
+    ] ;
+    yufriend:minSensitivity "200"^^xsd:decimal ;
+    yufriend:maxSensitivity "1600"^^xsd:decimal .
+
+# ================================
+# Camera Instance - With Dublin Core Metadata
+# ================================
+
+:Nikon-D70-dc a cam:SLR ;
+    cam:weight [
+        rdf:value "1.4"^^xsd:decimal ;
+        uom:units <http://www.something.org/units/lbs>
+    ] ;
+    dc:title "Nikon D70" ;
+    dc:creator "Yuchen" ;
+    dc:date "2004-03-01" .
+
+# ================================
+# Camera Instance - Using OWL Ontology
+# ================================
+
+:NikonD70 a camowl:SLR ;
+    camowl:owned_by <http://www.yuchen.net/people#LiyangYu> .
+
+# ================================
+# owl:sameIndividualAs / owl:sameAs Example
+# Another document says AsianNikonD70 is the same as NikonD70
+# (owl:sameIndividualAs was OWL 1 syntax, owl:sameAs is modern equivalent)
+# ================================
+
+<http://www.yufriend.net/rdf/NikonD70.rdf#AsianNikonD70> a camowl:SLR ;
+    owl:sameAs :NikonD70 ;  # Originally owl:sameIndividualAs in OWL 1
+    camowl:owned_by <http://www.yuchen.net/people#LiyangYu> .
+
+# ================================
+# owl:differentFrom Example
+# EuropeanNikonD70 is different from NikonD70
+# ================================
+
+<http://www.anotherfriend.net/rdf/NikonD70.rdf#EuropeanNikonD70> a camowl:SLR ;
+    owl:differentFrom :NikonD70 ;
+    camowl:owned_by <http://www.yuchen.net/people#HansMuller> .
+
+# ================================
+# RDF Instance using RDFS Schema
+# ================================
+
+<http://www.yuchen.net/photography/Camera.rdf#SLR> a cam:SLR ;
+    camrdfs:owned_by <http://www.yuchen.net/people#LiyangYu> .
