@@ -186,6 +186,8 @@
         <rdfs:domain rdf:resource="#Digital"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
+    <!-- rdfs:dataType is used here to specify the datatype of the property values -->
+    <rdfs:dataType rdf:about="http://www.w3.org/2001/XMLSchema#string"/>
     
     <!-- We can constrain expeniveOrNot property to always be `expensive` for ExpensiveSLR class -->
     <owl:Class rdf:ID="ExpensiveSLR">
@@ -372,5 +374,144 @@
 
 
 <!-- Defining Properties in OWL -->
+<!-- OWL uses two types of Properties called owl:ObjectProperty and owl:DatatypeProperty -->
+<!-- owl:ObjectProperty is used to link resources to resources -->
+<!-- owl:DatatypeProperty is used to link resources to rdfs:Literal (untyped) or an XML schema built-in datatype (typed) value -->
+<!-- Both owl:ObjectProperty and owl:DatatypeProperty are sub-properties of rdf:Property -->
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.owl">  
+
+    <!-- #### Classes #### -->
+
+    <!-- owned_by in RDFS -->
+    <!--
+    <rdfs:Property rdf:ID="owned_by">
+        <rdfs:domain rdf:resource="#Camera"/>
+        <rdfs:range rdf:resource="#Photographer"/>
+    </rdfs:Property>
+    -->
+
+    <!-- owned_by in OWL -->
+    <owl:ObjectProperty rdf:ID="owned_by">
+        <rdfs:domain rdf:resource="#Camera"/>
+        <rdfs:range rdf:resource="#Photographer"/>
+    </owl:ObjectProperty>
+
+    <!-- expensiveOrNot in RDFS -->
+    <!---
+    <rdfs:Property rdf:ID="expensiveOrNot">
+        <rdfs:domain rdf:resource="#Digital"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </rdfs:Property>
+    <rdfs:dataType rdf:about="http://www.w3.org/2001/XMLSchema#string"/>
+    -->
+
+    <!-- expensiveOrNot in OWL -->
+    <owl:DatatypeProperty rdf:ID="expensiveOrNot">
+        <rdfs:domain rdf:resource="#Digital"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    <rdfs:dataType rdf:about="http://www.w3.org/2001/XMLSchema#string"/>
 
 
+</rdf:RDF>
+
+
+<!-- Updated OWL including Properties -->
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.owl">  
+
+    <!-- #### Classes #### -->
+    <owl:Class rdf:ID="Camera">
+    </owl:Class>
+
+    <owl:Class rdf:ID="Person">
+    </owl:Class>
+
+    <owl:Class rdf:ID="Specifications">
+    </owl:Class>
+
+    <owl:Class rdf:ID="Digital">
+        <rdfs:subClassOf rdf:resource="#Camera"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="Film">
+        <rdfs:subClassOf rdf:resource="#Camera"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="SLR">
+        <rdfs:subClassOf rdf:resource="#Digital"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="PointAndShoot">
+        <rdfs:subClassOf rdf:resource="#Digital"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="Photographer">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="Professional">
+        <rdfs:subClassOf rdf:resource="#Photographer"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="Amateur">
+        <rdfs:subClassOf rdf:resource="#Photographer"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="ExpensiveSLR">
+        <rdfs:subClassOf rdf:resource="#SLR"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#owned_by"/>
+                <owl:someValuesFrom rdf:resource="#Professional"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+    <!-- #### Properties #### -->
+
+    <owl:ObjectProperty rdf:ID="owned_by">
+        <rdfs:domain rdf:resource="#Camera"/>
+        <rdfs:range rdf:resource="#Photographer"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:ID="has_spec">
+        <rdfs:domain rdf:resource="#SLR"/>
+        <rdfs:range rdf:resource="#Specifications"/>
+    </owl:ObjectProperty>
+
+    <owl:DatatypeProperty rdf:ID="expensiveOrNot">
+        <rdfs:domain rdf:resource="#Digital"/>
+        <rdfs:range rdf:resource="&xsd;#string"/>
+    </owl:DatatypeProperty>
+    <rdfs:dataType rdf:about="&xsd;#string"/>
+
+    <owl:DatatypeProperty rdf:ID="model">
+        <rdfs:domain rdf:resource="#Specifications"/>
+        <rdfs:range rdf:resource="&xsd;#string"/>
+    </owl:DatatypeProperty>
+    <rdfs:dataType rdf:about="&xsd;#string"/>
+
+    <owl:DatatypeProperty rdf:ID="pixel">
+        <rdfs:domain rdf:resource="#Digital"/>
+        <rdfs:range rdf:resource="http://www.someStandard.org/MegaPixel"/>
+    </owl:DatatypeProperty>
+    <rdfs:dataType rdf:about="http://www.someStandard.org/MegaPixel">
+        <rdfs:subClassOf rdf:resource="&xsd;#decimal"/>
+    </rdfs:dataType>
+
+</rdf:RDF>
+
+
+
+<!-- OWL Property Features -->
