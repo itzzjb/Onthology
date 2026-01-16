@@ -312,3 +312,24 @@
     </SLR>
 
 </rdf:RDF>
+
+
+<!-- owl:AllDifferent - If we have more instances that are different from each other  -->
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:base="http://www.anotherfriend.net/rdf/NikonD70.rdf"
+    xmlns="http://www.yuchen.net/photography/Camera.owl#">  
+    
+    <!-- owl:AllDifferent is used to state that all the instances listed are different from each other -->
+    <owl:AllDifferent>
+        <!-- owl:distinctMembers indicates that the following instances are all different from each other -->
+        <!-- rdf:parseType="Collection" means that the enclosed elements are treated as a collection -->
+        <owl:distinctMembers rdf:parseType="Collection">
+            <SLR rdf:about="http://www.yuchen.net/rdf/NikonD70.rdf#NikonD70"/>
+            <SLR rdf:about="http://www.yufriend.net/rdf/NikonD70.rdf#AsianNikonD70"/>
+            <SLR rdf:about="http://www.anotherfriend.net/rdf/NikonD70.rdf#EuropeanNikonD70"/>
+        </owl:distinctMembers>
+    </owl:AllDifferent>     
+
+</rdf:RDF>
