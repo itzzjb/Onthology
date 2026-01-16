@@ -704,3 +704,54 @@
     <!-- Because owns is an inverse functional property, both subjects should be the same. So, LiyangJin and JinLiyang should be considered the same. -->
 
 </rdf:RDF>
+
+
+
+<!-- OWL Othology Matching Features - owl:equivalentClass -->
+<!-- Used to explicilty declare that two classes in two different onthologies are equivalent classes -->
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.owl">
+
+    <!-- #### Classes #### -->
+
+    <owl:Class rdf:ID="Digital">
+        <rdfs:subClassOf rdf:resource="#Camera"/>
+        <!-- owl:equivalentClass is used to specify that this Digital class is equivalent to DigitalCamera class defined in a different ontology -->
+        <owl:equivalentClass rdf:resource="http://www.anotherOntology.org/ontologies/Photography.owl#DigitalCamera"/>
+    </owl:Class>
+
+    <owl:Class rdf:ID="SLR">
+        <rdfs:subClassOf rdf:resource="#Digital"/>
+        <!-- owl:equivalentClass is used to specify that this SLR class is equivalent to SingleLensReflex class defined in a different ontology -->
+        <owl:equivalentClass rdf:resource="http://www.anotherOntology.org/ontologies/Photography.owl#SingleLensReflex"/>
+    </owl:Class>
+
+    <!-- #### Properties #### -->
+
+</rdf:RDF>
+
+
+
+<!-- OWL Othology Matching Features - owl:disjointWith -->
+<!-- Used to specify that two classes are not related in any way -->
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.owl">
+
+    <!-- #### Classes #### -->
+
+    <owl:Class rdf:ID="SLR">
+        <rdfs:subClassOf rdf:resource="#Digital"/>
+        <!-- owl:disjointWith is used to specify that SLR class is disjoint with PointAndShoot class -->
+        <!-- owl:disjointWith is by default a symmetric property. So PointAndShoot is also disjoint with SLR. -->
+        <owl:disjointWith rdf:resource="#PointAndShoot"/>
+    </owl:Class>
+    
+    <!-- #### Properties #### -->
+
+</rdf:RDF>
