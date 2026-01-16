@@ -487,3 +487,71 @@
 </rdf:RDF> 
 
 
+
+<!-- The final RDFS Schema will look like this-->
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.rdfs#">
+
+    <!-- #### Classes ####  -->
+
+    <rdfs:Class rdf:ID="Camera"> 
+    </rdfs:Class>
+
+    <rdfs:Class rdf:ID="Person"> 
+    </rdfs:Class>
+
+    <rdfs:Class rdf:ID="Specifications">
+    </rdfs:Class>
+
+    <rdfs:Class rdf:ID="Digital"> 
+        <rdfs:subClassOf rdf:resource="#Camera"/>
+    </rdfs:Class>
+
+    <rdfs:Class rdf:ID="Film"> 
+        <rdfs:subClassOf rdf:resource="#Camera"/>
+    </rdfs:Class>
+    
+    <rdfs:Class rdf:ID="SLR"> 
+        <rdfs:subClassOf rdf:resource="#Digital"/>
+    </rdfs:Class>   
+    
+    <rdfs:Class rdf:ID="Point-And-Shoot"> 
+        <rdfs:subClassOf rdf:resource="#Digital"/>
+    </rdfs:Class>
+
+    <rdfs:Class rdf:ID="Photographer"> 
+        <rdfs:subClassOf rdf:resource="#Person"/>
+    </rdfs:Class>
+
+    <!-- #### Properties #### -->
+
+    <rdfs:Property rdf:ID="has_spec">
+        <rdfs:domain rdf:resource="#SLR"/>
+        <rdfs:range rdf:resource="#Specifications"/>
+    </rdfs:Property>
+
+    <rdfs:Property rdf:ID="owned_by">
+        <rdfs:domain rdf:resource="#Camera"/>
+        <rdfs:range rdf:resource="#Photographer"/>
+    </rdfs:Property>
+
+    <rdfs:Property rdf:ID="model">
+        <rdfs:domain rdf:resource="#Specifications"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </rdfs:Property>
+    </rdfs:dataType rdf:about="&xsd;string"/>
+
+    <rdfs:Property rdf:ID="pixel"> 
+        <rdfs:domain rdf:resource="#Digital"/>
+        <rdfs:range rdf:resource="http://www.someStandard.org/MegaPixel"/>
+    </rdfs:Property>    
+    <rdfs:dataType rdf:about="http://www.someStandard.org/MegaPixel">
+        <rdfs:subClassOf rdf:resource="&xsd;decimal"/>
+    </rdfs:dataType>
+
+</rdf:RDF>
