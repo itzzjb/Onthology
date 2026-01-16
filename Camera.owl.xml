@@ -288,6 +288,8 @@
 
 </rdf:RDF>
 
+
+
 <!-- OWL Class Features - Enumerations in OWL -->
 <?xml version="1.0"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -311,6 +313,8 @@
 
 
 </rdf:RDF>
+
+
 
 <!-- Updated OWL upto now -->
 <?xml version="1.0"?>
@@ -373,6 +377,7 @@
 </rdf:RDF>
 
 
+
 <!-- Defining Properties in OWL -->
 <!-- OWL uses two types of Properties called owl:ObjectProperty and owl:DatatypeProperty -->
 <!-- owl:ObjectProperty is used to link resources to resources -->
@@ -418,6 +423,7 @@
 
 
 </rdf:RDF>
+
 
 
 <!-- Updated OWL including Properties -->
@@ -515,3 +521,186 @@
 
 
 <!-- OWL Property Features -->
+<!-- Preperties can be Symmetric, Transitive, Functional, InverseFunctional, Inverse of another property -->
+<!-- Note: Users rdf:type not rdfs -->
+
+
+<!-- OWL Property Features - Symmetric Properties -->
+<!-- If resource R1 is connected to R2 by a property, then R2 is connected to R1 by the same property -->
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.owl">
+
+    <!-- #### Classes #### -->
+
+    <!-- #### Properties #### -->
+
+    <owl:ObjectProperty rdf:ID="friend_with">
+        <rdfs:domain rdf:resource="#Person"/>
+        <rdfs:range rdf:resource="#Person"/>
+        <!-- We just use a rdf:type to specify the property type -->
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    </owl:ObjectProperty>
+
+    <!-- The respective RDF representation will be like -->
+    <!--
+    <Photographer rdf:about="http://www.yuchen.net/people#Liyang">
+        <friend_with rdf:resource="http://www.yuchen.net/people#Jin"/>
+    </Photographer>
+    -->
+    <!-- Since Liyang is friend with Jin, Jin is also friend with Liyang -->
+
+</rdf:RDF>
+
+
+
+<!-- OWL Property Features - Transitive Properties -->
+<!-- If resource R1 is connected to R2 by a property, and R2 is connected to R3 by the same property, then R1 is connected to R3 by the same property -->
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.owl">
+
+    <!-- #### Classes #### -->
+
+    <!-- #### Properties #### -->
+
+    <!-- Define a new property called betterQualityPriceRatio as a transitive property, so that can be used to compare cameras  -->
+    <owl:ObjectProperty rdf:ID="betterQualityPriceRatio">
+        <rdfs:domain rdf:resource="#Camera"/>
+        <rdfs:range rdf:resource="#Camera"/>
+        <!-- We just use a rdf:type to specify the property type -->
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    </owl:ObjectProperty>
+
+    <!-- If Camera A has betterQualityPriceRatio with Camera B, and Camera B has betterQualityPriceRatio with Camera C, then Camera A has betterQualityPriceRatio with Camera C -->
+
+</rdf:RDF>
+
+
+
+<!-- OWL Property Features - Functional Properties -->
+<!-- A property is functional if for a given resource, there can be atmost one value for that property -->
+<!-- Many-To-One - atmost one unique value for each instance -->
+<!-- For a given rdfs:domain, there is only one rdfs:model value -->
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.owl">
+
+    <!-- #### Classes #### -->
+
+    <!-- #### Properties #### -->
+
+    <owl:DatatypeProperty rdf:ID="model">
+        <rdfs:domain rdf:resource="#Specifications"/>
+        <rdfs:range rdf:resource="&xsd;#string"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    </owl:DatatypeProperty>
+    <rdfs:dataType rdf:about="&xsd;#string"/>
+
+    <!-- In main rdf document the object is created like this -->
+    <!--
+    <Specifications rdf:about="http://www.yuchen.net/photography/NikonD70.rdf#Specifications">
+        <model rdf:datatype="http://www.w3.org/2001/XMLSchema#string">
+            Nikon D70
+        </model>
+    </Specifications>
+    -->
+
+    <!-- Another person mentions this object URI in a different document -->
+    <!-- Note that it uses the same URI and also uses the same othology in the default namespace  -->
+    <!--
+    <Specifications rdf:about="http://www.yuchen.net/photography/NikonD70.rdf#Specifications" xmlns="http://www.yuchen.net/photography/Camera.owl">
+        <model rdf:datatype="http://www.w3.org/2001/XMLSchema#string">
+            Nikon-D70
+        </model>
+    </Specifications>
+    -->
+
+    <!-- Because model is a functional property, both values should be the same. So, Nikon D70 and Nikon-D70 should be considered the same. -->
+
+</rdf:RDF>
+
+
+
+<!-- OWL Property Features - Inverse Properties -->
+<!-- If resource R1 is connected to R2 by a property P, then R2 is connected to R1 by the inverse of property P -->
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.owl">
+
+    <!-- #### Classes #### -->
+
+    <!-- #### Properties #### -->
+
+    <owl:ObjectProperty rdf:ID="owned_by">
+        <rdfs:domain rdf:resource="#Camera"/>
+        <rdfs:range rdf:resource="#Photographer"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:ID="owns">
+        <!-- owl:inverseOf is used to specify that owns is the inverse property of owned_by -->
+        <owl:inverseOf rdf:resource="#owned_by"/>
+        <rdfs:domain rdf:resource="#Photographer"/>
+        <rdfs:range rdf:resource="#Camera"/>
+    </owl:ObjectProperty>
+
+</rdf:RDF>
+
+
+
+<!-- OWL Property Features - Inverse Functional Properties -->
+<!-- A property is inverse functional if for a given value, there can be atmost one resource that has that value for that property -->
+<!-- One-To-Many - atmost one unique subject for each value -->
+<!-- For a given rdfs:model, there is only one rdfs:domain value -->
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.owl">
+
+    <!-- #### Classes #### -->
+
+    <!-- #### Properties #### -->
+
+    <owl:ObjectProperty rdf:ID="owned_by">
+        <rdfs:domain rdf:resource="#Camera"/>
+        <rdfs:range rdf:resource="#Photographer"/>
+    </owl:ObjectProperty>
+
+    <!-- We can define as for a given Camera there is a unique Photographer who owns it -->
+    <owl:ObjectProperty rdf:ID="owns">
+        <!-- We just use a rdf:type to specify the property type -->
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="#Photographer"/>
+        <rdfs:range rdf:resource="#Camera"/>
+    </owl:ObjectProperty>
+
+    <!-- In main rdf document the object is created like this -->
+    <!--
+    <Photographer rdf:ID="LiyangJin">
+        <owns rdf:resource="http://www.yuchen.net/photography/NikonD70.rdf#Camera"/>
+    </Photographer>
+    -->
+
+    <!-- Another person mentions this object URI in a different document -->
+    <!-- Note that it uses the same URI and also uses the same othology in the default namespace  -->
+    <!--
+    <Photographer rdf:ID="JinLiyang" xmlns="http://www.yuchen.net/photography/Camera.owl">
+        <owns rdf:resource="http://www.yuchen.net/photography/NikonD70.rdf#Camera"/>
+    </Photographer>
+    -->
+    
+    <!-- Because owns is an inverse functional property, both subjects should be the same. So, LiyangJin and JinLiyang should be considered the same. -->
+
+</rdf:RDF>
