@@ -498,22 +498,22 @@
 
     <owl:DatatypeProperty rdf:ID="expensiveOrNot">
         <rdfs:domain rdf:resource="#Digital"/>
-        <rdfs:range rdf:resource="&xsd;#string"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
-    <rdfs:dataType rdf:about="&xsd;#string"/>
+    <rdfs:dataType rdf:about="&xsd;string"/>
 
     <owl:DatatypeProperty rdf:ID="model">
         <rdfs:domain rdf:resource="#Specifications"/>
-        <rdfs:range rdf:resource="&xsd;#string"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
-    <rdfs:dataType rdf:about="&xsd;#string"/>
+    <rdfs:dataType rdf:about="&xsd;string"/>
 
     <owl:DatatypeProperty rdf:ID="pixel">
         <rdfs:domain rdf:resource="#Digital"/>
         <rdfs:range rdf:resource="http://www.someStandard.org/MegaPixel"/>
     </owl:DatatypeProperty>
     <rdfs:dataType rdf:about="http://www.someStandard.org/MegaPixel">
-        <rdfs:subClassOf rdf:resource="&xsd;#decimal"/>
+        <rdfs:subClassOf rdf:resource="&xsd;decimal"/>
     </rdfs:dataType>
 
 </rdf:RDF>
@@ -601,10 +601,10 @@
 
     <owl:DatatypeProperty rdf:ID="model">
         <rdfs:domain rdf:resource="#Specifications"/>
-        <rdfs:range rdf:resource="&xsd;#string"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
     </owl:DatatypeProperty>
-    <rdfs:dataType rdf:about="&xsd;#string"/>
+    <rdfs:dataType rdf:about="&xsd;string"/>
 
     <!-- In main rdf document the object is created like this -->
     <!--
@@ -700,7 +700,7 @@
         <owns rdf:resource="http://www.yuchen.net/photography/NikonD70.rdf#Camera"/>
     </Photographer>
     -->
-    
+
     <!-- Because owns is an inverse functional property, both subjects should be the same. So, LiyangJin and JinLiyang should be considered the same. -->
 
 </rdf:RDF>

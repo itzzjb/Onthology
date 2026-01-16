@@ -2,7 +2,7 @@
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns="http://www.yuchen.net/photography/Camera#">
 
-    <SLR rdf.ID="Nikon-D70"> 
+    <SLR rdf:ID="Nikon-D70"> 
         <weight>1.4 lbs</weight>
     </SLR>
 
@@ -17,7 +17,7 @@
     xmlns="http://www.yuchen.net/photography/Camera#"
     xmlns:base="http://www.yuchen.net/rdf/NikonD70.rdf">
 
-    <SLR rdf.ID="Nikon-D70"> 
+    <SLR rdf:ID="Nikon-D70"> 
         <weight>1.4 lbs</weight>
     </SLR>
 
@@ -33,7 +33,7 @@
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns="http://www.yuchen.net/photography/Camera#">
 
-    <SLR rdf.about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70"> 
+    <SLR rdf:about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70"> 
         <weight>1.4 lbs</weight>
     </SLR>
 
@@ -168,7 +168,7 @@
 
 
 <!-- Another person can add some data by creating a resource with the same URI -->
-<? xml version="1.0" ?>
+<?xml version="1.0" ?>
 <!DOCTYPE rdf:RDF [
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
@@ -181,8 +181,8 @@
     <rdf:Description rdf:about="http://www.yuchen.net/rdf/NikonD70.rdf#Nikon-D70">
         <!-- Notice that the class is also the same -->
         <rdf:type rdf:resource="http://www.yuchen.net/photography/Camera#SLR"/>
-        <minSensitivity rdf.datatype="&xsd;decimal">200 </minSensitivity>
-        <maxSensitivity rdf.datatype="&xsd;decimal">1600</maxSensitivity>
+        <minSensitivity rdf:datatype="&xsd;decimal">200 </minSensitivity>
+        <maxSensitivity rdf:datatype="&xsd;decimal">1600</maxSensitivity>
     </rdf:Description>
 
 </rdf:RDF>
