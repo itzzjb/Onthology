@@ -403,4 +403,87 @@
 </rdf:RDF>
 
 
-87
+<!-- Note: Not like OOP, RDFS Properties are defined seperate from Classes. Any Property can be associated with any class. -->
+<!-- This is to make it possible so other people also can add new properties to existing classes with their own vocabularies. -->
+
+<!-- Another person's vocabulary can extend existing classes by adding new properties here. -->
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xml:yuchen="http://www.yuchen.net/photography/Camera.rdfs#"
+    xmlns:base="http://www.yufriend.net/photography/Camera.rdfs">
+
+    <!-- Adding the new property to yuchen's vocabulary from yufriend's vocabulary -->
+    <!-- The rdfs:domain is set to yuchen's Digital Class -->
+    <rdfs:Property rdf:ID="battery_life">
+        <rdfs:domain rdf:resource="http://www.yuchen.net/photography/Camera.rdfs#Digital"/>
+        <rdfs:range rdf:resource="http://www.someStandard.org/Hours"/>
+    </rdfs:Property>
+
+    <rdfs:dataType rdf:about="http://www.someStandard.org/Hours">
+        <rdfs:subClassOf rdf:resource="&xsd;decimal"/>
+    </rdfs:dataType>
+
+</rdf:RDF>
+
+<!-- Now the Merged (Aggregated) yuchen's vocabulary will look like this -->
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.rdfs#">
+
+    <!-- #### Classes ####  -->
+
+    <!-- #### Properties #### -->
+
+    <!-- To aggregate, we reference the external property using its full URI in rdf:about -->
+    <rdfs:Property rdf:about="http://www.yufriend.net/photography/Camera.rdfs#battery_life">
+        <rdfs:domain rdf:resource="http://www.yuchen.net/photography/Camera.rdfs#Digital"/>
+        <rdfs:range rdf:resource="http://www.someStandard.org/Hours"/>
+    </rdfs:Property>
+
+    <rdfs:dataType rdf:about="http://www.someStandard.org/Hours">
+        <rdfs:subClassOf rdf:resource="&xsd;decimal"/>
+    </rdfs:dataType>
+
+</rdf:RDF>
+
+
+<!-- Subclassed Inherits Properties of Superclass -->
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:base="http://www.yuchen.net/photography/Camera.rdfs#">
+
+    <!-- #### Classes ####  -->
+
+    <!-- #### Properties #### -->
+
+    <!-- We need to say owned_by property should be used by either #Digital or #Film classes -->
+    <!-- Following is wronge because it says it should be used by both #Digital and #Film classes at the same time -->
+    <!--
+    <rdfs:Property rdf:ID="owned_by">
+        <rdfs:domain rdf:resource="#Digital"/>
+        <rdfs:domain rdf:resource="#Film"/>
+        <rdfs:range rdf:resource="#Photographer"/>
+    </rdfs:Property>
+    -->
+
+    <!-- What we can do is set the rdfs:domain to the Superclass #Camera. So either #Digital or #Film classes can use the owned_by property -->
+    <rdfs:Property rdf:ID="owned_by">
+        <rdfs:domain rdf:resource="#Camera"/>
+        <rdfs:range rdf:resource="#Photographer"/>
+    </rdfs:Property>
+
+</rdf:RDF> 
+
+
