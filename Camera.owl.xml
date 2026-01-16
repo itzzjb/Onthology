@@ -101,16 +101,15 @@
     <!-- Expensive SLR is a subclass of SLR -->
     <!-- Inorder to explicitly express that ExpensiveSLR can only be owned_by Professionals -->
     <owl:Class rdf:ID="ExpensiveSLR">
-        <rdfs:subClassOf rdf:resource="#SLR">
-            <rdfs:subClassOf>
-                <!-- owl:Restriction is used to specify a anonymous class -->
-                <owl:Restriction>
-                    <!-- owl:onProperty specifies the property to which the restriction applies -->
-                    <owl:onProperty rdf:resource="#owned_by"/>
-                    <!-- owl:allValuesFrom specifies that all values of the property must be from the specified class -->
-                    <owl:allValuesFrom rdf:resource="#Professional"/>
-                </owl:Restriction>
-            </rdfs:subClassOf>
+        <rdfs:subClassOf rdf:resource="#SLR"/>
+        <rdfs:subClassOf>
+            <!-- owl:Restriction is used to specify a anonymous class -->
+            <owl:Restriction>
+                <!-- owl:onProperty specifies the property to which the restriction applies -->
+                <owl:onProperty rdf:resource="#owned_by"/>
+                <!-- owl:allValuesFrom specifies that all values of the property must be from the specified class -->
+                <owl:allValuesFrom rdf:resource="#Professional"/>
+            </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
 
@@ -151,19 +150,16 @@
     <!-- Inorder loose some restrictions from before and give Amateurs the ability to own ExpensiveSLR 
     given the fact that atleast one of the owners is a Professional -->
     <owl:Class rdf:ID="ExpensiveSLR">
-        <rdfs:subClassOf rdf:resource="#SLR">
-            <rdfs:subClassOf>
-                <!-- owl:Restriction is used to specify a anonymous class -->
-                <owl:Restriction>
-                    <!-- owl:onProperty specifies the property to which the restriction applies -->
-                    <owl:onProperty rdf:resource="#owned_by"/>
-                    <!-- owl:someValuesFrom specifies that some values of the property must be from the specified class -->
-                    <owl:someValuesFrom rdf:resource="#Professional"/>
-                </owl:Restriction>
-            </rdfs:subClassOf>
+        <rdfs:subClassOf rdf:resource="#SLR"/>
+        <rdfs:subClassOf>
+            <!-- owl:Restriction is used to specify a anonymous class -->
+            <owl:Restriction>
+                <!-- owl:onProperty specifies the property to which the restriction applies -->
+                <owl:onProperty rdf:resource="#owned_by"/>
+                <!-- owl:someValuesFrom specifies that some values of the property must be from the specified class -->
+                <owl:someValuesFrom rdf:resource="#Professional"/>
+            </owl:Restriction>
         </rdfs:subClassOf>
-    </owl:Class>
-
     </owl:Class>
 
 </rdf:RDF>
@@ -196,17 +192,14 @@
         <rdfs:subClassOf rdf:resource="#SLR">
             <rdfs:subClassOf>
                 <owl:Restriction>
-                    <owl:onProperty rdf:resource="#expensiveOrNot"/>
-                    <!-- owl:hasValue specifies that the property must have the specified value -->
-                    <!-- Notice that rdf:dataType is used to specify the datatype of the value -->
-                    <owl:hasValue rdf:dataType="http://www.w3.org/2001/XMLSchema#string">
-                        expensive
-                    </owl:hasValue>
-                </owl:Restriction>
-            </rdfs:subClassOf>
-        </rdfs:subClassOf>
-    </owl:Class>
-
-    </owl:Class>
-
-</rdf:RDF>
+                    <owl:onProperty rdf:reso/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#expensiveOrNot"/>
+                <!-- owl:hasValue specifies that the property must have the specified value -->
+                <!-- Notice that rdf:dataType is used to specify the datatype of the value -->
+                <owl:hasValue rdf:dataType="http://www.w3.org/2001/XMLSchema#string">
+                    expensive
+                </owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf></rdf:RDF>
